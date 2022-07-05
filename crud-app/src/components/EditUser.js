@@ -5,6 +5,7 @@ import { useParams,useNavigate } from 'react-router-dom';
 const EditUser = () => {
   const navigate = useNavigate()
   const [data,setdata] = useState({})
+  const [error,setError] = useState({})
  console.log(data)
   let { id } = useParams()
   console.log(id)
@@ -13,9 +14,27 @@ const EditUser = () => {
   const handlechange = (e) =>{
     const { name, value } = e.target;
     setdata({ ...data, [name]: value });
+    if(!e.target.value){
+      setError({...error,[e.target.name]:`${e.target.name} is required`})
+    }
+    else{
+      setError({...error,[e.target.name]:''})
+    }
   } 
 
   const updateData = (e) =>{
+    if(!data.username){
+      setError({...data,username:'Name cannot be blank'})
+    }else if(!data.fullname){
+      setError({...data,fullname:'fullname cannot be blank'})
+    }else if(!data.email){
+      setError({...data,email:'email cannot be blank'})
+    }else if(!data.mobilenumber){
+      setError({...data,mobilenumber:'mobilenumber cannot be blank'})
+    }else if(data.mobilenumber.length != 10){
+      setError({...data,mobilenumber:'Enter a valid mobile number'})
+    }
+    else{
     axios.put(`http://localhost:3007/posts/${id}`,data)
     .then(res =>{
       console.log("data added")
@@ -25,7 +44,7 @@ const EditUser = () => {
       console.log(err)
     })
   }
-  console.log(data.username)
+}
   useEffect(()=>{
   axios.get(`http://localhost:3007/posts/${id}`)
   .then((res) =>{
@@ -53,6 +72,7 @@ const EditUser = () => {
                   onChange={(e) => handlechange(e)}
                 />
               </Form.Group>
+              <span style={{color:"red"}}>{error.username}</span>
               <Form.Group className="mt-4">
                 <Form.Label>Full Name</Form.Label>
                 <Form.Control
@@ -63,6 +83,7 @@ const EditUser = () => {
                   onChange={(e) => handlechange(e)}
                 />
               </Form.Group>
+              <span style={{color:"red"}}>{error.fullname}</span>
               <Form.Group className="mt-4">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
@@ -73,6 +94,7 @@ const EditUser = () => {
                   onChange={(e) => handlechange(e)}
                 />
               </Form.Group>
+              <span style={{color:"red"}}>{error.email}</span>
               <Form.Group className="mt-4">
                 <Form.Label>Mobile Number</Form.Label>
                 <Form.Control
@@ -83,6 +105,7 @@ const EditUser = () => {
                   onChange={(e) => handlechange(e)}
                 />
               </Form.Group>
+              <span style={{color:"red"}}>{error.mobilenumber}</span>
               <div className="d-grid gap-2 mt-4">
                 <Button onClick={(e) => updateData(e)} variant="success" size="lg">
                 Update

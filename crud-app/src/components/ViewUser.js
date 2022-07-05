@@ -105,7 +105,8 @@ const ViewUser = () => {
             })}
         </tbody>
       </Table>
-      <Link to="/">
+      
+      <Link to="/add">
         <Button className="mx-auto">Add Users</Button>
       </Link>
     </div>
