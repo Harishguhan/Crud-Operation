@@ -100,7 +100,9 @@ const ViewUser = () => {
                       Delete
                     </Button>
                   </td>
+                  
                 </tr>
+                
               );
             })}
         </tbody>

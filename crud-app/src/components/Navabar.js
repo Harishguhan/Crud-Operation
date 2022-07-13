@@ -17,9 +17,13 @@ const Navbars = () => {
               <Link to="view">
                 <Button className="btn-info">CRUD</Button>
               </Link>
-              <Link to="hoc">
+               <Link to="hoc">
                 <Button className="btn-info mx-4">HOC</Button>
               </Link>
+              {/*
+              <Link to="home">
+                <Button className="btn-info mx-">Redux</Button>
+              </Link> */}
             </Nav>
           </Navbar.Collapse>
         </Container>

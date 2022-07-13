@@ -1,7 +1,7 @@
 import React, { useReducer, useState } from "react";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import "./AddUser.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 const AddUser = () => {
   const navigate = useNavigate();
@@ -20,6 +20,9 @@ const AddUser = () => {
     else if(!values.email){
       setError({...error,email:'Email Cannot be blank'})
     }
+    else if(!values.email.match(regEx)){
+      setError({...error,email:'Enter a Valid email address'})
+     }
     else if(!values.mobilenumber){
       setError({...error,mobilenumber:'Mobile Cannot be blank'})
     } else if(values.mobilenumber.length !=10){
@@ -38,21 +41,29 @@ const AddUser = () => {
     }
   };
   const handlechange = (e) => {
+    const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
     if (!e.target.value) {
       setError({ ...error, [e.target.name]: `${e.target.name} cannot be blank` });
-    } else {
+    } 
+    else {
       setError({ ...error, [e.target.name]: "" });
     }
+    if(values.username.length < 3 && values.username.length > 0){
+      setError({...error,username:'Username Must be 4 Charecters'})
+    }
+    if(!values.email.match(regEx)){
+      setError({...error,email:'Enter valid Email Address'})
+    }   
   };
   return (
     <Container className="col-4">
       <Row>
         <Col>
-          <Form>
+          <Form className="welcpme">
             <div className="Adduser">
-              <h1 className="text-center mt-5 mb-5">Add a users</h1>
+              <h1 className="text-center mt-3 mb-2">Add a users</h1>
               <Form.Group className="mt-2">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
@@ -94,10 +105,11 @@ const AddUser = () => {
                 />
               </Form.Group>
               <span style={{ color: "red" }}>{error.mobilenumber}</span>
-              <div className="d-grid gap-2 mt-4">
-                <Button  onClick={(e) => onsubmit(e)} variant="primary" size="lg">
+              <div className="mt-3" >
+                <Button  onClick={(e) => onsubmit(e)}>
                   Submit
                 </Button>
+                <Link to='/view'><Button className="btn-info" style={{marginLeft:"170px"}}>Cancel</Button></Link>
               </div>
             </div>
           </Form>

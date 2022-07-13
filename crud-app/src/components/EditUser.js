@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams,useNavigate, Link } from 'react-router-dom';
+import './AddUser.css';
 const EditUser = () => {
   const navigate = useNavigate()
   const [data,setdata] = useState({})
@@ -23,16 +24,21 @@ const EditUser = () => {
   } 
 
   const updateData = (e) =>{
+
+    const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
     if(!data.username){
-      setError({...data,username:'Name cannot be blank'})
+      setError({...error,username:'Name cannot be blank'})
     }else if(!data.fullname){
-      setError({...data,fullname:'fullname cannot be blank'})
+      setError({...error,fullname:'fullname cannot be blank'})
     }else if(!data.email){
-      setError({...data,email:'email cannot be blank'})
-    }else if(!data.mobilenumber){
-      setError({...data,mobilenumber:'mobilenumber cannot be blank'})
+      setError({...error,email:'email cannot be blank'})
+    }else if(!data.email.match(regEx)){
+      setError({...error,email:'Enter a valid Email Address'})
+    }
+    else if(!data.mobilenumber){
+      setError({...error,mobilenumber:'mobilenumber cannot be blank'})
     }else if(data.mobilenumber.length != 10){
-      setError({...data,mobilenumber:'Enter a valid mobile number'})
+      setError({...error,mobilenumber:'Enter a valid mobile number'})
     }
     else{
     axios.put(`http://localhost:3007/posts/${id}`,data)
@@ -59,9 +65,9 @@ const EditUser = () => {
     <Container className="col-5">
       <Row>
         <Col>
-          <Form>
+          <Form className='welcpme'>
             <div className="Adduser">
-              <h1 className="text-center mt-5 mb-5">Edit the User Data</h1>
+              <h1 className="text-center ">Edit the User Data</h1>
               <Form.Group className="mt-2">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
@@ -101,15 +107,16 @@ const EditUser = () => {
                   type="text"
                   name="mobilenumber"
                   placeholder="Enter Your Mobile Number"
-                  value={data.mobilenumber}
+                  value={data.mobilenumber}  
                   onChange={(e) => handlechange(e)}
                 />
               </Form.Group>
               <span style={{color:"red"}}>{error.mobilenumber}</span>
-              <div className="d-grid gap-2 mt-4">
-                <Button onClick={(e) => updateData(e)} variant="success" size="lg">
+              <div className="mt-4">
+                <Button onClick={(e) => updateData(e)} variant="success">
                 Update
                 </Button>
+                <Link to='/view'><Button className='btn-info' style={{marginLeft:"270px"}}>Cancel</Button></Link>
               </div>
             </div>
           </Form>
