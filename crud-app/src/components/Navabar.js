@@ -20,10 +20,10 @@ const Navbars = () => {
                <Link to="hoc">
                 <Button className="btn-info mx-4">HOC</Button>
               </Link>
-              {/*
-              <Link to="home">
-                <Button className="btn-info mx-">Redux</Button>
-              </Link> */}
+              
+               <Link to="/addcontact">
+                 <Button className="btn-info mx-">Redux-CRUD</Button>
+               </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
