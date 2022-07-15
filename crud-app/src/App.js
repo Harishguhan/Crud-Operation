@@ -9,6 +9,7 @@ import Hoc from "./HigerOrder/Hoc";
 import Final from "./HigerOrder/Final";
 import AddContact from "./Redux_Components/AddContact";
 import ViewContact from "./Redux_Components/ViewContact";
+import EditContact from "./Redux/reducers/EditContact";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/hello" element={<Final /> } />
         <Route path="/addcontact" element={<AddContact /> } />
         <Route path="/viewcontact" element={<ViewContact /> } />
+        <Route path="/editcontact/:id" element={<EditContact />} />
       </Routes>      
 
     </div>  
