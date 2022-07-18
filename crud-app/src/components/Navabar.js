@@ -20,8 +20,7 @@ const Navbars = () => {
                <Link to="hoc">
                 <Button className="btn-info mx-4">HOC</Button>
               </Link>
-              
-               <Link to="/addcontact">
+               <Link to="/viewcontact">
                  <Button className="btn-info mx-">Redux-CRUD</Button>
                </Link>
             </Nav>

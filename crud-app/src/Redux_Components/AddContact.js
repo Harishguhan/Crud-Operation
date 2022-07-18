@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure()
 
-
 const AddContact = () => {
   const notify = () =>{
     toast.success('student added sucessfully',{autoClose :1000})
@@ -40,10 +39,8 @@ const AddContact = () => {
       setError({...error,email:'Enter a valid email address'})
     }else if(!details.mobilenumber){
       setError({...error,mobilenumber:'Mobilenumber cannot be blank'})
-    }else if(details.mobilenumber.length != 10 ){
-      setError({...error,mobilenumber:'Enter a valid mobilenumber'})
     }else if(!details.mobilenumber.match(phoneno)){
-      setError({...error,mobilenumber:'Invalid mobile number'})
+      setError({...error,mobilenumber:'Enter a valid Mobilenumber'})
     }
     else if(!details.address){
       setError({...error,address:'Address cannot be blank'})
@@ -118,15 +115,18 @@ const AddContact = () => {
               />
                <span style={{color:'red'}}>{error.address}</span>
             </div>
-            <button type="submit" onClick={(e)=>handlesubmit(e)} className="btn btn-info mt-4">
-              submit
-            </button>
             <Link to="/viewcontact">
               <button className="btn btn-warning mt-4 mx-4">Cancel</button>
             </Link>
+            <button type="submit" onClick={(e)=>handlesubmit(e)} className="btn btn-info mt-4">
+              submit
+            </button>
+            
           </form>
         </div>
       </div>
+
+ 
     </div>
   );
 };

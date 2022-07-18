@@ -4,49 +4,65 @@ import { Link, useParams,useNavigate } from 'react-router-dom';
 import { useSelector,useDispatch } from "react-redux";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import contactReducer from "./ContactReducer";
 const EditContact = () => {
 
+
+  const [data,setdata] = useState({});
+  const [error,setError] = useState({});
   const update = () =>{
-    toast.success('Student Update Successfully')
+    toast.success('Student Update Successfully',{autoClose :1000})
   }
-
-
-  const [name,setname] = useState('');
-  const [email,setemail] = useState('');
-  const [number,setnumber] = useState('');
-  const [address,setaddress] = useState('');
+  const handlechange = (e) =>{
+    setdata({...data,[e.target.name]:e.target.value})
+    if(!e.target.value){
+      setError({ ...error, [e.target.name]: `${e.target.name} cannot be blank` });
+    } else {
+      setError('')
+    }
+}
   const { id } =useParams();
   const editdata = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const curent = editdata.find(editdata => editdata.id === parseInt(id));
-    
+  
 
   useEffect(()=>{
     if(curent){
-      setname(curent.name),
-      setemail(curent.email),
-      setnumber(curent.number),
-      setaddress(curent.address)
+      setdata(curent)
     }
   },[curent])
   const updatedata = (e) =>{
     e.preventDefault();
-
-    const data = {
+    var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    if(!data.name){
+      setError({...error,name:'Name cannot be blank'})
+    } else if(!data.email){
+      setError({...error,email:'Email cannot be blank'})
+    } else if(!data.mobilenumber.match(phoneno)){
+      setError({...error,mobilenumber:'Enter a valid mobilenumber'})
+    }else if(!data.mobilenumber){
+      setError({...error,mobilenumber:'Mobilenumber cannot be blank'})
+    } else if(!data.address){
+      setError({...error,address:'Address cannot be blank'})
+    }
+  else{
+    const datas = {
       id: parseInt(id),
-      name,
-      email,
-      number,
-      address,
+      name:data.name,
+      email:data.email,
+      mobilenumber:data.mobilenumber,
+      address:data.address,
     };
+   
     dispatch({
       type:'UPDATE_DATA',
-      payload:data
+      payload:datas
     })
     update();
     navigate('/viewcontact')
-
+  }
   } 
   return (
     <div className="container">
@@ -61,17 +77,18 @@ const EditContact = () => {
             />
           </div>
           <div className="col-lg-6">
-            <h1 className="mb-3 mt-4">Edit Data</h1>
+            <h1 className="mb-3 mt-4">Edit Student id {data.id}</h1>
             <form className="registerform">
               <div className="form-group mt-2">
                 <label>Username</label>
                 <input
                   type="text"
                   className="form-control"
-                  name="uname"
-                  value={name}
-                  onChange={(e)=>setname(e.target.value)}
+                  name="name"
+                  value={data.name}
+                  onChange={(e)=>handlechange(e)}
                 />
+                <span style={{color:'red'}}>{error.name}</span>
               </div>
               <div className="form-group mt-3">
                 <label>Email</label>
@@ -79,9 +96,10 @@ const EditContact = () => {
                   type="text"
                   className="form-control"
                   name="email"
-                  value={email}
-                  onChange={(e)=>setemail(e.target.value)}
+                  value={data.email}
+                  onChange={(e)=>handlechange(e)}
                 />
+                 <span style={{color:'red'}}>{error.email}</span> 
               </div>
               <div className="form-group mt-3">
                 <label>MobileNumber</label>
@@ -89,9 +107,10 @@ const EditContact = () => {
                   type="text"
                   className="form-control"
                   name="mobilenumber"
-                  value={number}
-                  onChange={(e)=>setnumber(e.target.value)}
+                  value={data.mobilenumber}
+                  onChange={(e)=>handlechange(e)}
                 />
+              <span style={{color:'red'}}>{error.mobilenumber}</span>
               </div>
               <div className="form-group mt-3">
                 <label>Address</label>
@@ -99,9 +118,10 @@ const EditContact = () => {
                   type="text"
                   className="form-control"
                   name="address"
-                  value={address}
-                  onChange={(e)=>setaddress(e.target.value)}
+                  value={data.address}
+                  onChange={(e)=>handlechange(e)}
                 />
+                <span style={{color:'red'}}>{error.address}</span>
               </div>
               <button onClick={(e)=>updatedata(e)} className="btn btn-success mt-4">
                 Update

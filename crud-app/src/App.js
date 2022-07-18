@@ -15,7 +15,6 @@ function App() {
   return (
     <Container>
     <div className="App">
-      
       <Routes>
         <Route path="/" element={<Navbars />} />
         <Route path='/add' element={<AddUser />} />

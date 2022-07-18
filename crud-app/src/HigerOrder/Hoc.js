@@ -8,7 +8,7 @@ var details ={
     MailId:'harishguhan2122@gmail.com'
 }
 
-const HigerOrder = NewComponent => class extends React.Component{
+const HigerOrder = (Original) => class NewComponent extends React.Component{
     componentDidMount(){
         this.setState({
             name:details.Name,
@@ -17,7 +17,7 @@ const HigerOrder = NewComponent => class extends React.Component{
         })
     }
     render(){ 
-        return <NewComponent  {...this.state} {...this.props} />
+        return <Original {...this.state} {...this.props} />
     }
 }
 class Hoc extends React.Component{
