@@ -6,11 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure()
-
 const AddContact = () => {
   const notify = () =>{
     toast.success('student added sucessfully',{autoClose :1000})
-  }  
+}  
   const [details,setdetails] = useState({});
   const [error,setError] = useState({});
   const dispatch = useDispatch();
@@ -121,12 +120,9 @@ const AddContact = () => {
             <button type="submit" onClick={(e)=>handlesubmit(e)} className="btn btn-info mt-4">
               submit
             </button>
-            
           </form>
         </div>
       </div>
-
- 
     </div>
   );
 };

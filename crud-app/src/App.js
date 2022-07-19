@@ -10,7 +10,7 @@ import Final from "./HigerOrder/Final";
 import AddContact from "./Redux_Components/AddContact";
 import ViewContact from "./Redux_Components/ViewContact";
 import EditContact from "./Redux/reducers/EditContact";
-
+import Counter from "./Toolkit/Counter";
 function App() {
   return (
     <Container>
@@ -25,10 +25,10 @@ function App() {
         <Route path="/addcontact" element={<AddContact /> } />
         <Route path="/viewcontact" element={<ViewContact /> } />
         <Route path="/editcontact/:id" element={<EditContact />} />
-      </Routes>      
-
+        <Route path="/counter" element={<Counter />} />
+      </Routes> 
     </div>  
-     </Container>
+    </Container>
   );
 }
 

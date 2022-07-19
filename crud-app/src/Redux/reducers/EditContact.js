@@ -40,8 +40,6 @@ const EditContact = () => {
       setError({...error,name:'Name cannot be blank'})
     } else if(!data.email){
       setError({...error,email:'Email cannot be blank'})
-    } else if(!data.mobilenumber.match(phoneno)){
-      setError({...error,mobilenumber:'Enter a valid mobilenumber'})
     }else if(!data.mobilenumber){
       setError({...error,mobilenumber:'Mobilenumber cannot be blank'})
     } else if(!data.address){
