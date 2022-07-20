@@ -7,10 +7,9 @@ import { BrowserRouter } from "react-router-dom";
 import { createStore } from "redux";
 import contactReducer from "./Redux/reducers/ContactReducer";
 import { Provider } from "react-redux";
-import { stores } from "./Toolkit/store";
-import counterReducer from './Toolkit/Createcounter'
-// const store = createStore(contactReducer);
+import {stores} from "./Toolkit/store";
 
+// const store = createStore(contactReducer);
 
 ReactDOM.render(
   // <BrowserRouter>
@@ -19,7 +18,6 @@ ReactDOM.render(
   //   </Provider>
   // </BrowserRouter>,
 
-  
   <BrowserRouter>
     <Provider store={stores}>
       <App />

@@ -100,14 +100,11 @@ const ViewUser = () => {
                       Delete
                     </Button>
                   </td>
-                  
                 </tr>
-                
               );
             })}
         </tbody>
       </Table>
-      
       <Link to="/add">
         <Button className="mx-auto">Add Users</Button>
       </Link>
