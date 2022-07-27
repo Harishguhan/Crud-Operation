@@ -7,19 +7,13 @@ import { BrowserRouter } from "react-router-dom";
 import { createStore } from "redux";
 import contactReducer from "./Redux/reducers/ContactReducer";
 import { Provider } from "react-redux";
-import {stores} from "./Toolkit/store";
 
-// const store = createStore(contactReducer);
+
+const store = createStore(contactReducer);
 
 ReactDOM.render(
-  // <BrowserRouter>
-  //   <Provider store={store}>
-  //     <App />
-  //   </Provider>
-  // </BrowserRouter>,
-
   <BrowserRouter>
-    <Provider store={stores}>
+    <Provider store={store}>
       <App />
     </Provider>
   </BrowserRouter>,

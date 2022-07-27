@@ -3,23 +3,37 @@ import { useSelector,useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import swal from 'sweetalert';
 toast.configure()
 const ViewContact = () => {
     const del = () =>{
         toast.error('Student deleted sucessfully',{autoClose :1000})
 }
 const contact = useSelector((state) => state);
+console.log(contact)
 const navigate = useNavigate();
 const dispatch = useDispatch();
 const Editdata = (id) =>{
     navigate(`/editcontact/${id}`)
 }
 const deletedata = (id) =>{
-    dispatch({type:'DELETE_DATA',payload:id})
-    del();
+  swal({
+    title: "Are you sure?",
+    text: "Once the the file deleted it will not be recovered",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      dispatch({type:'DELETE_DATA',payload:id})
+      del();
+    } else {
+      
+    }
+  });
 }
   return (
-    <div>
       <div className="container">
         <div className="d-flex justify-content-end">
           <Link to="/addcontact">
@@ -29,7 +43,7 @@ const deletedata = (id) =>{
         <div className="row">
           {contact.map((contact) => {
             return (
-              <div className="col-lg-4 mt-3">
+              <div className="col-lg-4 col-md-6 mt-3">
                 <span class="badge bg-secondary">{contact.id}</span>
                 <div className="card" style={{ width: "18rem" }}>
                   <img
@@ -55,7 +69,6 @@ const deletedata = (id) =>{
           })}
         </div>
       </div>
-    </div>
   );
 };
 
